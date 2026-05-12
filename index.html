@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DrvArt – Bold Editorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a08;
+    --off-white: #f5f2eb;
+    --yellow: #e8c84a;
+    --red: #c0392b;
+    --mid: #6b6760;
+    --line: 2px solid var(--black);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Space Grotesk', sans-serif; background: var(--off-white); color: var(--black); }
+
+  /* NAV */
+  nav {
+    border-bottom: var(--line);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: stretch;
+    height: 64px;
+    position: sticky; top: 0; z-index: 100;
+    background: var(--off-white);
+  }
+  .nav-logo {
+    border-right: var(--line);
+    padding: 0 2rem;
+    display: flex; align-items: center;
+    font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 700;
+    letter-spacing: -1px;
+    background: var(--black); color: var(--yellow);
+  }
+  .nav-menu {
+    display: flex; align-items: center;
+    padding: 0 2rem; gap: 0;
+  }
+  .nav-menu a {
+    padding: 0 1.5rem; text-decoration: none; color: var(--black);
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.5px;
+    height: 100%; display: flex; align-items: center;
+    border-right: 1px solid rgba(0,0,0,0.12);
+    transition: background 0.15s;
+  }
+  .nav-menu a:hover { background: var(--yellow); }
+  .nav-right {
+    border-left: var(--line);
+    padding: 0 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .nav-cta {
+    background: var(--yellow); border: 2px solid var(--black);
+    padding: 8px 20px; font-weight: 700; font-size: 0.78rem;
+    letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
+    color: var(--black); transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--black); color: var(--yellow); }
+
+  /* HERO – Brutalist Grid */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    border-bottom: var(--line);
+    min-height: 92vh;
+  }
+  .hero-main {
+    border-right: var(--line);
+    padding: 5% 6%;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--yellow); border: 2px solid var(--black);
+    padding: 4px 12px; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2rem;
+  }
+  .hero-title {
+    font-size: 5.5rem; font-weight: 700; line-height: 0.92;
+    letter-spacing: -3px; margin-bottom: 2rem;
+  }
+  .hero-title em {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic; color: var(--mid); font-weight: 400;
+  }
+  .hero-desc { font-size: 1rem; line-height: 1.7; color: var(--mid); max-width: 380px; margin-bottom: 3rem; font-weight: 300; }
+  .hero-actions { display: flex; gap: 1rem; }
+  .btn-black { background: var(--black); color: var(--off-white); padding: 14px 32px; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; border: 2px solid var(--black); transition: all 0.15s; }
+  .btn-black:hover { background: var(--yellow); color: var(--black); }
+  .btn-outline-b { border: 2px solid var(--black); padding: 14px 28px; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; color: var(--black); transition: all 0.15s; }
+  .btn-outline-b:hover { background: var(--black); color: var(--off-white); }
+
+  .hero-img {
+    background: var(--black);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; padding: 4rem;
+  }
+  .hero-img-art {
+    animation: breathe 5s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+  .hero-overlay-text {
+    position: absolute; bottom: 2rem; left: 2rem;
+    font-size: 0.65rem; color: rgba(245,242,235,0.4);
+    letter-spacing: 3px; text-transform: uppercase;
+  }
+
+  /* MARQUEE */
+  .marquee-bar {
+    background: var(--yellow); border-bottom: var(--line);
+    overflow: hidden; padding: 0; height: 42px;
+    display: flex; align-items: center;
+  }
+  .marquee-track {
+    display: flex; gap: 4rem; white-space: nowrap;
+    animation: marquee 18s linear infinite;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .m-sep { color: var(--black); opacity: 0.4; }
+
+  /* EDITORIAL GRID */
+  .editorial {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    border-bottom: var(--line);
+  }
+  .ed-left { grid-column: 1/5; border-right: var(--line); padding: 3rem 2.5rem; }
+  .ed-left h2 { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem; }
+  .stat-block { border-top: var(--line); padding: 1.5rem 0; }
+  .stat-block .big { font-size: 3.5rem; font-weight: 700; letter-spacing: -2px; }
+  .stat-block .big em { font-family: 'Libre Baskerville', serif; font-style: italic; color: var(--red); }
+  .stat-block p { font-size: 0.82rem; color: var(--mid); margin-top: 0.25rem; }
+
+  .ed-mid { grid-column: 5/9; border-right: var(--line); padding: 3rem 2.5rem; }
+  .product-featured {
+    border: var(--line); padding: 2rem;
+    transition: background 0.2s; cursor: pointer;
+    position: relative; overflow: hidden;
+  }
+  .product-featured:hover { background: var(--yellow); }
+  .product-featured + .product-featured { margin-top: -2px; }
+  .pf-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; color: var(--mid); margin-bottom: 0.5rem; }
+  .pf-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .pf-price { font-size: 0.9rem; color: var(--mid); }
+  .pf-arrow { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.2rem; opacity: 0; transition: opacity 0.2s; }
+  .product-featured:hover .pf-arrow { opacity: 1; }
+
+  .ed-right { grid-column: 9/13; padding: 3rem 2.5rem; }
+  .ed-right h2 { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; }
+  .process-step { border-top: 1px solid rgba(0,0,0,0.12); padding: 1.2rem 0; display: flex; gap: 1rem; align-items: flex-start; }
+  .step-n { font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; color: var(--mid); min-width: 24px; padding-top: 3px; }
+  .step-t { font-size: 0.88rem; font-weight: 500; }
+  .step-d { font-size: 0.78rem; color: var(--mid); margin-top: 0.2rem; font-weight: 300; }
+
+  /* PRODUCTS FULL SECTION */
+  .products-section { padding: 4rem 4%; border-bottom: var(--line); }
+  .products-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: var(--line);
+  }
+  .products-header h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
+  .products-header a { font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; color: var(--black); border-bottom: 2px solid var(--black); }
+
+  .p-bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: var(--line); }
+  .pb-card { border-right: var(--line); border-bottom: var(--line); overflow: hidden; cursor: pointer; transition: background 0.2s; }
+  .pb-card:nth-child(4n) { border-right: none; }
+  .pb-card:nth-last-child(-n+4) { border-bottom: none; }
+  .pb-card:hover { background: var(--yellow); }
+  .pb-img { height: 200px; display: flex; align-items: center; justify-content: center; border-bottom: var(--line); background: #f0ece3; }
+  .pb-info { padding: 1.25rem; }
+  .pb-cat { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); margin-bottom: 0.4rem; }
+  .pb-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .pb-meta { font-size: 0.78rem; color: var(--mid); margin-bottom: 1rem; }
+  .pb-footer { display: flex; align-items: center; justify-content: space-between; }
+  .pb-price { font-size: 1rem; font-weight: 700; }
+  .pb-3d { font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: var(--black); color: var(--off-white); padding: 5px 12px; transition: background 0.2s; }
+  .pb-card:hover .pb-3d { background: var(--off-white); color: var(--black); }
+
+  /* 3D SECTION */
+  .s3d {
+    display: grid; grid-template-columns: 5fr 7fr;
+    border-bottom: var(--line); min-height: 560px;
+  }
+  .s3d-copy { border-right: var(--line); padding: 5% 6%; display: flex; flex-direction: column; justify-content: space-between; }
+  .s3d-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--mid); margin-bottom: 1.5rem; }
+  .s3d-title { font-size: 3rem; font-weight: 700; letter-spacing: -2px; line-height: 1.05; margin-bottom: 1.5rem; }
+  .s3d-title em { font-family: 'Libre Baskerville', serif; font-style: italic; font-weight: 400; color: var(--red); }
+  .s3d-desc { font-size: 0.9rem; color: var(--mid); line-height: 1.8; font-weight: 300; margin-bottom: 2rem; }
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+  .fg-item { border: var(--line); padding: 1rem; }
+  .fg-item strong { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.5px; display: block; margin-bottom: 0.3rem; }
+  .fg-item span { font-size: 0.75rem; color: var(--mid); }
+
+  .s3d-window { background: #1a1a18; display: flex; flex-direction: column; }
+  .s3d-win-bar {
+    display: flex; align-items: center; padding: 0.75rem 1.5rem; gap: 0.5rem;
+    border-bottom: 1px solid #333;
+  }
+  .win-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .win-title { font-size: 0.7rem; color: #666; margin-left: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
+  .s3d-win-canvas { flex: 1; display: flex; align-items: center; justify-content: center; }
+  .wardrobe-3d {
+    animation: wardFloat 5s ease-in-out infinite;
+    transform-style: preserve-3d;
+  }
+  @keyframes wardFloat {
+    0%, 100% { transform: perspective(700px) rotateY(-15deg) rotateX(8deg) translateY(0); }
+    50% { transform: perspective(700px) rotateY(-15deg) rotateX(8deg) translateY(-16px); }
+  }
+  .s3d-win-controls {
+    border-top: 1px solid #333; padding: 1rem 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .ctrl-group label { display: block; font-size: 0.62rem; color: #666; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .ctrl-group input[type="range"] { width: 100%; accent-color: var(--yellow); }
+  .ctrl-val { font-size: 0.75rem; color: var(--yellow); font-weight: 700; }
+  .swatch-row { display: flex; gap: 0.4rem; align-items: center; }
+  .swatch { width: 18px; height: 18px; border-radius: 2px; cursor: pointer; border: 2px solid transparent; transition: border-color 0.15s; }
+  .swatch.active { border-color: var(--yellow); }
+
+  /* FOOTER */
+  footer { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; }
+  .foot-brand { border-right: var(--line); padding: 3rem 2.5rem; }
+  .foot-brand .logo-f { font-size: 2rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.3rem; }
+  .logo-f-dot { width: 10px; height: 10px; background: var(--yellow); border-radius: 50%; display: inline-block; }
+  .foot-brand p { font-size: 0.82rem; color: var(--mid); line-height: 1.7; font-weight: 300; margin-bottom: 1.5rem; }
+  .foot-contact { font-size: 0.8rem; line-height: 1.8; }
+  .foot-col { border-right: var(--line); padding: 3rem 2rem; }
+  .foot-col:last-child { border-right: none; }
+  .foot-col h4 { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .foot-col ul a { text-decoration: none; color: var(--mid); font-size: 0.85rem; font-weight: 300; transition: color 0.15s; }
+  .foot-col ul a:hover { color: var(--black); }
+  .foot-bottom { border-top: var(--line); grid-column: 1/-1; padding: 1.25rem 2.5rem; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--mid); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">DrvArt<span style="color:var(--yellow);">.</span></div>
+  <div class="nav-menu">
+    <a href="#">Kolekcija</a>
+    <a href="#">Po meri</a>
+    <a href="#">3D Studio</a>
+    <a href="#">Blog</a>
+    <a href="#">O nama</a>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="nav-cta">Korpa (0)</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-main">
+    <div>
+      <span class="hero-tag">Elektronska prodavnica · Srbija</span>
+      <div class="hero-title">Drvo.<br><em>Rađeno</em><br>za vas.</div>
+    </div>
+    <p class="hero-desc">Nameštaj i drveni predmeti rađeni tačno po vašim merama. Koristite naš 3D konfigurator da dizajnirate savršen komad.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-black">Pregledaj kolekciju</a>
+      <a href="#" class="btn-outline-b">3D Studio →</a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <div class="hero-img-art">
+      <svg width="300" height="340" viewBox="0 0 300 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Bold geometric armchair -->
+        <rect x="40" y="140" width="220" height="40" rx="0" fill="#e8c84a"/>
+        <rect x="40" y="70" width="220" height="75" rx="0" fill="#c8a040"/>
+        <rect x="20" y="90" width="30" height="90" fill="#e8c84a"/>
+        <rect x="250" y="90" width="30" height="90" fill="#e8c84a"/>
+        <rect x="52" y="178" width="18" height="80" fill="#a08030"/>
+        <rect x="230" y="178" width="18" height="80" fill="#a08030"/>
+        <rect x="80" y="178" width="18" height="65" fill="#c8a040"/>
+        <rect x="202" y="178" width="18" height="65" fill="#c8a040"/>
+        <!-- Wood grain lines -->
+        <line x1="40" y1="105" x2="260" y2="105" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
+        <line x1="40" y1="120" x2="260" y2="120" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
+        <line x1="40" y1="135" x2="260" y2="135" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
+        <!-- Tag -->
+        <rect x="220" y="55" width="60" height="28" rx="2" fill="rgba(245,242,235,0.15)" stroke="rgba(245,242,235,0.3)" stroke-width="1"/>
+        <text x="250" y="74" fill="rgba(245,242,235,0.7)" font-size="9" text-anchor="middle" font-family="sans-serif" letter-spacing="1">PO MERI</text>
+      </svg>
+    </div>
+    <div class="hero-overlay-text">Fotelja · Hrast · 80×95×75cm</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Ručna izrada</span><span class="m-sep">✦</span>
+    <span>Dimenzije po meri</span><span class="m-sep">✦</span>
+    <span>3D konfigurator</span><span class="m-sep">✦</span>
+    <span>Hrast · Bor · Orah</span><span class="m-sep">✦</span>
+    <span>7–14 dana isporuka</span><span class="m-sep">✦</span>
+    <span>Kragujevac, Srbija</span><span class="m-sep">✦</span>
+    <span>Besplatna konsultacija</span><span class="m-sep">✦</span>
+    <span>Ručna izrada</span><span class="m-sep">✦</span>
+    <span>Dimenzije po meri</span><span class="m-sep">✦</span>
+    <span>3D konfigurator</span><span class="m-sep">✦</span>
+    <span>Hrast · Bor · Orah</span><span class="m-sep">✦</span>
+    <span>7–14 dana isporuka</span><span class="m-sep">✦</span>
+    <span>Kragujevac, Srbija</span><span class="m-sep">✦</span>
+    <span>Besplatna konsultacija</span><span class="m-sep">✦</span>
+  </div>
+</div>
+
+<!-- EDITORIAL -->
+<div class="editorial">
+  <div class="ed-left">
+    <h2>Tržište & Rast</h2>
+    <div class="stat-block"><div class="big">€<em>4.2</em>B</div><p>Globalno tržište nameštaja online</p></div>
+    <div class="stat-block"><div class="big">+<em>22</em>%</div><p>Rast online kupovine nameštaja u Srbiji</p></div>
+    <div class="stat-block"><div class="big"><em>68</em>%</div><p>Kupaca traži personalizaciju</p></div>
+  </div>
+  <div class="ed-mid">
+    <h2>Kolekcija</h2>
+    <div class="product-featured">
+      <div class="pf-num">01 / Fotelje</div>
+      <div class="pf-name">Fotelja Milano</div>
+      <div class="pf-price">Od €340 · Hrast · Po meri</div>
+      <span class="pf-arrow">→</span>
+    </div>
+    <div class="product-featured">
+      <div class="pf-num">02 / Ormari</div>
+      <div class="pf-name">Ormar Beograd</div>
+      <div class="pf-price">Od €520 · Bor/Hrast · Po meri</div>
+      <span class="pf-arrow">→</span>
+    </div>
+    <div class="product-featured">
+      <div class="pf-num">03 / Police</div>
+      <div class="pf-name">Polica Šuma</div>
+      <div class="pf-price">Od €95 · Hrast · 40–200cm</div>
+      <span class="pf-arrow">→</span>
+    </div>
+    <div class="product-featured">
+      <div class="pf-num">04 / Stolovi</div>
+      <div class="pf-name">Sto Oval Masiv</div>
+      <div class="pf-price">Od €480 · Orah · Ovalni</div>
+      <span class="pf-arrow">→</span>
+    </div>
+  </div>
+  <div class="ed-right">
+    <h2>Naš proces</h2>
+    <div class="process-step"><div class="step-n">01</div><div><div class="step-t">Konfiguriši online</div><div class="step-d">Izaberi dimenzije i boju u 3D studu</div></div></div>
+    <div class="process-step"><div class="step-n">02</div><div><div class="step-t">Potvrda i detalji</div><div class="step-d">Naš majstor potvrđuje narudžbinu</div></div></div>
+    <div class="process-step"><div class="step-n">03</div><div><div class="step-t">Ručna izrada</div><div class="step-d">7–14 radnih dana u radionici</div></div></div>
+    <div class="process-step"><div class="step-n">04</div><div><div class="step-t">Dostava</div><div class="step-d">Dostavljamo po celoj Srbiji</div></div></div>
+  </div>
+</div>
+
+<!-- PRODUCTS BENTO -->
+<section class="products-section">
+  <div class="products-header">
+    <h2>Svi proizvodi</h2>
+    <a href="#">Pogledaj kompletnu kolekciju →</a>
+  </div>
+  <div class="p-bento">
+    <div class="pb-card">
+      <div class="pb-img">
+        <svg width="100" height="100" viewBox="0 0 100 100"><rect x="15" y="40" width="70" height="18" rx="0" fill="#c8722a"/><rect x="15" y="25" width="70" height="17" rx="0" fill="#a05820"/><rect x="8" y="40" width="12" height="33" fill="#c8722a"/><rect x="80" y="40" width="12" height="33" fill="#c8722a"/><rect x="20" y="57" width="8" height="30" fill="#6b4428"/><rect x="72" y="57" width="8" height="30" fill="#6b4428"/></svg>
+      </div>
+      <div class="pb-info">
+        <p class="pb-cat">Fotelje</p>
+        <p class="pb-name">Fotelja Zlatibor</p>
+        <p class="pb-meta">Hrast · 12 boja · Po meri</p>
+        <div class="pb-footer"><span class="pb-price">Od €340</span><span class="pb-3d">3D →</span></div>
+      </div>
+    </div>
+    <div class="pb-card">
+      <div class="pb-img" style="background:#e8f0e0;">
+        <svg width="100" height="100" viewBox="0 0 100 100"><rect x="28" y="10" width="44" height="82" rx="0" fill="#4a7c59" opacity="0.6"/><line x1="28" y1="50" x2="72" y2="50" stroke="#fff" stroke-width="2"/><rect x="31" y="53" width="16" height="36" fill="#2d6a4f" opacity="0.7"/><rect x="53" y="53" width="16" height="36" fill="#2d6a4f" opacity="0.7"/></svg>
+      </div>
+      <div class="pb-info">
+        <p class="pb-cat">Ormari</p>
+        <p class="pb-name">Ormar Beograd</p>
+        <p class="pb-meta">Bor · 8 finiševa · Po meri</p>
+        <div class="pb-footer"><span class="pb-price">Od €520</span><span class="pb-3d">3D →</span></div>
+      </div>
+    </div>
+    <div class="pb-card">
+      <div class="pb-img" style="background:#f0ece0;">
+        <svg width="100" height="100" viewBox="0 0 100 100"><rect x="8" y="38" width="84" height="8" rx="0" fill="#8b5e3c"/><rect x="8" y="54" width="84" height="8" rx="0" fill="#8b5e3c" opacity="0.7"/><rect x="8" y="70" width="84" height="8" rx="0" fill="#8b5e3c" opacity="0.5"/><rect x="10" y="38" width="6" height="52" fill="#6b4428"/><rect x="84" y="38" width="6" height="52" fill="#6b4428"/></svg>
+      </div>
+      <div class="pb-info">
+        <p class="pb-cat">Police</p>
+        <p class="pb-name">Polica Šuma</p>
+        <p class="pb-meta">Hrast / Bor · 6 dužina</p>
+        <div class="pb-footer"><span class="pb-price">Od €95</span><span class="pb-3d">→</span></div>
+      </div>
+    </div>
+    <div class="pb-card">
+      <div class="pb-img" style="background:#f0e8e8;">
+        <svg width="100" height="100" viewBox="0 0 100 100"><ellipse cx="50" cy="42" rx="32" ry="10" fill="#8b5e3c"/><rect x="22" y="42" width="56" height="6" fill="#6b4428"/><rect x="28" y="46" width="8" height="38" fill="#6b4428"/><rect x="64" y="46" width="8" height="38" fill="#6b4428"/></svg>
+      </div>
+      <div class="pb-info">
+        <p class="pb-cat">Stolovi</p>
+        <p class="pb-name">Sto Oval Masiv</p>
+        <p class="pb-meta">Orah · Po meri</p>
+        <div class="pb-footer"><span class="pb-price">Od €480</span><span class="pb-3d">3D →</span></div>
+      </div>
+    </div>
+    <div class="pb-card">
+      <div class="pb-img" style="background:#f0e8f8;">
+        <svg width="100" height="100" viewBox="0 0 100 100"><rect x="15" y="20" width="70" height="50" rx="4" fill="#c8722a" opacity="0.5"/><rect x="25" y="70" width="50" height="12" fill="#8b5e3c"/><rect x="35" y="82" width="10" height="14" fill="#6b4428"/><rect x="55" y="82" width="10" height="14" fill="#6b4428"/></svg>
+      </div>
+      <div class="pb-info">
+        <p class="pb-cat">Kreveti</p>
+        <p class="pb-name">Krevet Masiv</p>
+        <p class="pb-meta">Hrast · 140/160/180 cm</p>
+        <div class="pb-footer"><span class="pb-price">Od €620</span><span class="pb-3d">3D →</span></div>
+      </div>
+    </div>
+    <div class="pb-card">
+      <div class="pb-img" style="background:#e8f4e8;">
+        <svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="40" r="22" fill="#2d6a4f" opacity="0.3"/><rect x="46" y="55" width="8" height="22" fill="#8b5e3c"/><ellipse cx="50" cy="79" rx="12" ry="4" fill="#6b4428" opacity="0.5"/><circle cx="50" cy="38" r="14" fill="#52b788" opacity="0.7"/></svg>
+      </div>
+      <div class="pb-info">
+        <p class="pb-cat">Dekoracije</p>
+        <p class="pb-name">Saksija – Hrast</p>
+        <p class="pb-meta">Bor / Hrast · Poklon</p>
+        <div class="pb-footer"><span class="pb-price">Od €35</span><span class="pb-3d">→</span></div>
+      </div>
+    </div>
+    <div class="pb-card">
+      <div class="pb-img">
+        <svg width="100" height="100" viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="45" rx="0" fill="#c8722a" opacity="0.4"/><rect x="30" y="30" width="40" height="8" rx="0" fill="#a05820" opacity="0.6"/><rect x="22" y="73" width="56" height="5" fill="#6b4428"/><rect x="25" y="78" width="10" height="14" fill="#6b4428"/><rect x="65" y="78" width="10" height="14" fill="#6b4428"/></svg>
+      </div>
+      <div class="pb-info">
+        <p class="pb-cat">Stolice</p>
+        <p class="pb-name">Stolica Café</p>
+        <p class="pb-meta">Hrast · Kuhinja · B2B</p>
+        <div class="pb-footer"><span class="pb-price">Od €120</span><span class="pb-3d">→</span></div>
+      </div>
+    </div>
+    <div class="pb-card" style="background: var(--yellow);">
+      <div class="pb-img" style="background: rgba(232,200,74,0.3); border-bottom: 2px solid var(--black);">
+        <div style="text-align:center">
+          <div style="font-size: 2.5rem; font-weight: 700; letter-spacing: -2px;">3D</div>
+          <div style="font-size: 0.7rem; letter-spacing: 2px; font-weight: 700; text-transform: uppercase;">Studio</div>
+        </div>
+      </div>
+      <div class="pb-info">
+        <p class="pb-cat">Online alat</p>
+        <p class="pb-name">3D Konfigurator</p>
+        <p class="pb-meta">Dizajnirajte sami</p>
+        <div class="pb-footer"><span style="font-size:0.85rem;font-weight:700;">Besplatno</span><span class="pb-3d" style="background:var(--black);color:var(--off-white);">Otvori →</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3D SECTION -->
+<section class="s3d">
+  <div class="s3d-copy">
+    <div>
+      <p class="s3d-label">● 3D Studio</p>
+      <h2 class="s3d-title">Vidite pre<br>nego što<br><em>kupite</em></h2>
+      <p class="s3d-desc">Naš online 3D konfigurator vam daje potpunu slobodu – izmenite svaku dimenziju, izaberite vrstu drveta, boju lazure i vrstu finiša. Sve u realnom vremenu.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="fg-item"><strong>Dimenzije</strong><span>Klizač u cm</span></div>
+      <div class="fg-item"><strong>12 boja</strong><span>Lazure i premazi</span></div>
+      <div class="fg-item"><strong>Rotacija 360°</strong><span>Sve strane</span></div>
+      <div class="fg-item"><strong>PDF izvoz</strong><span>Narudžbenica</span></div>
+    </div>
+    <a href="#" class="btn-black" style="display:inline-block;">Otvori 3D Studio →</a>
+  </div>
+  <div class="s3d-window">
+    <div class="s3d-win-bar">
+      <div class="win-dot" style="background:#ff5f57"></div>
+      <div class="win-dot" style="background:#febc2e"></div>
+      <div class="win-dot" style="background:#28c840"></div>
+      <span class="win-title">DrvArt 3D Studio · drvart.rs</span>
+    </div>
+    <div class="s3d-win-canvas">
+      <div class="wardrobe-3d" id="ward3d">
+        <svg width="260" height="280" viewBox="0 0 260 280">
+          <!-- Cabinet body -->
+          <rect x="30" y="30" width="200" height="220" fill="#c8722a" stroke="#a05820" stroke-width="2"/>
+          <!-- Panel divisions -->
+          <line x1="130" y1="30" x2="130" y2="250" stroke="#a05820" stroke-width="2"/>
+          <line x1="30" y1="140" x2="230" y2="140" stroke="#a05820" stroke-width="1.5"/>
+          <!-- Door handles -->
+          <rect x="112" y="95" width="8" height="30" rx="4" fill="#e8c84a"/>
+          <rect x="140" y="95" width="8" height="30" rx="4" fill="#e8c84a"/>
+          <!-- Top panel shading -->
+          <rect x="30" y="30" width="200" height="25" fill="rgba(0,0,0,0.12)"/>
+          <!-- Base -->
+          <rect x="24" y="248" width="212" height="16" fill="#a05820"/>
+          <!-- Feet -->
+          <rect x="38" y="264" width="18" height="12" fill="#7a3b1e"/>
+          <rect x="204" y="264" width="18" height="12" fill="#7a3b1e"/>
+          <!-- Shadow -->
+          <ellipse cx="130" cy="274" rx="100" ry="6" fill="rgba(0,0,0,0.25)"/>
+          <text x="130" y="296" fill="rgba(255,255,255,0.2)" font-size="8" text-anchor="middle" font-family="sans-serif" letter-spacing="3">KONFIGURATOR MODE</text>
+        </svg>
+      </div>
+    </div>
+    <div class="s3d-win-controls">
+      <div class="ctrl-group">
+        <label>Širina: <span class="ctrl-val" id="wVal">100</span> cm</label>
+        <input type="range" min="60" max="200" value="100" oninput="document.getElementById('wVal').textContent=this.value" style="width:100%">
+      </div>
+      <div class="ctrl-group">
+        <label>Visina: <span class="ctrl-val" id="hVal">200</span> cm</label>
+        <input type="range" min="150" max="240" value="200" oninput="document.getElementById('hVal').textContent=this.value" style="width:100%">
+      </div>
+      <div class="ctrl-group">
+        <label>Boja:</label>
+        <div class="swatch-row">
+          <div class="swatch active" style="background:#c8722a" onclick="setWardColor('#c8722a', this)"></div>
+          <div class="swatch" style="background:#3d1f0d" onclick="setWardColor('#3d1f0d', this)"></div>
+          <div class="swatch" style="background:#e8d5b0" onclick="setWardColor('#e8d5b0', this)"></div>
+          <div class="swatch" style="background:#1a1a1a" onclick="setWardColor('#1a1a1a', this)"></div>
+          <div class="swatch" style="background:#f5f2eb; border: 1px solid #999" onclick="setWardColor('#f5f2eb', this)"></div>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <label>Dubina: <span class="ctrl-val" id="dVal">60</span> cm</label>
+        <input type="range" min="30" max="80" value="60" oninput="document.getElementById('dVal').textContent=this.value" style="width:100%">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-brand">
+    <div class="logo-f">DrvArt<div class="logo-f-dot"></div></div>
+    <p>Nameštaj i drveni predmeti rađeni sa strašću i preciznošću u Kragujevcu. Svaki komad jedinstven kao i vi.</p>
+    <div class="foot-contact">
+      📍 Kragujevac, Srbija<br>
+      📞 +381 60 123 4567<br>
+      ✉ porudzbine@drvart.rs<br>
+      drvart.rs
+    </div>
+  </div>
+  <div class="foot-col">
+    <h4>Kolekcija</h4>
+    <ul>
+      <li><a href="#">Fotelje</a></li><li><a href="#">Ormari</a></li>
+      <li><a href="#">Police</a></li><li><a href="#">Stolovi</a></li>
+      <li><a href="#">Kreveti</a></li><li><a href="#">Dekoracije</a></li>
+    </ul>
+  </div>
+  <div class="foot-col">
+    <h4>Kompanija</h4>
+    <ul>
+      <li><a href="#">O nama</a></li><li><a href="#">Naš tim</a></li>
+      <li><a href="#">Blog</a></li><li><a href="#">B2B</a></li>
+    </ul>
+  </div>
+  <div class="foot-col">
+    <h4>Podrška</h4>
+    <ul>
+      <li><a href="#">Kako naručiti</a></li><li><a href="#">Dostava</a></li>
+      <li><a href="#">Garancija</a></li><li><a href="#">Kontakt</a></li>
+      <li><a href="#">WhatsApp</a></li>
+    </ul>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2025 DrvArt · drvart.rs · Kragujevac, Srbija</p>
+    <p>Instagram · Facebook · TikTok · YouTube</p>
+  </div>
+</footer>
+
+<script>
+  function setWardColor(color, el) {
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    const rects = document.querySelectorAll('#ward3d rect');
+    rects[0] && (rects[0].setAttribute('fill', color));
+  }
+</script>
+</body>
+</html>
